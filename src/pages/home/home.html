@@ -1,17 +1,35 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Todo</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-item>
+    <img src="/assets/imgs/icon-180x180.png" class="icon-brand">
+    <span style="font-size:30px;">TODO LIST</span>
+  </ion-item>
+  <br>
+
+  <ion-card style="margin:0;width:100%;padding: 10px;">
+
+    <ion-list inset>      
+     <ion-item *ngFor="let item of items">
+        <ion-label> {{ item.title }} </ion-label>
+        <ion-checkbox color="secondary" checked="false"></ion-checkbox> 
+        <button ion-button clear item-end icon-only (click)="showEditTodoList()"> <ion-icon name="md-create"></ion-icon> </button>
+    </ion-item>
+    </ion-list>
+    <!-- 
+      <ion-input type="text" placeholder="Enter Title"></ion-input>
+      <button ion-button block medium> Add </button> 
+    -->
+  </ion-card>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="showAddTodoPrompt()" color="light"> 
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
 </ion-content>
