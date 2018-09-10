@@ -11,18 +11,19 @@
   </ion-item>
   <br>
 
+  <!-- 
   <ion-card style="margin:0;width:100%;padding: 10px;">
     <ion-list inset>      
       <ion-list-header>
         Task
       </ion-list-header>
       <ion-item *ngFor="let item of items; let i = index;">
-          <ion-label *ngIf="!item.status; else isFinished"> {{ item.title }} </ion-label>
-          <ng-template #isFinished>
-            <ion-label style="text-decoration:line-through solid black; opacity: 0.5;"> {{ item.title }} </ion-label>
-          </ng-template>
-          <ion-checkbox color="secondary" [(ngModel)]="item.status" (ionChange)="finsihedListItem(i)"></ion-checkbox> 
-          <button ion-button clear item-end icon-only (click)="showEditTodoList(item, i)"> <ion-icon name="md-create"></ion-icon> </button>
+        <ion-label *ngIf="!item.status; else isFinished"> {{ item.title }} </ion-label>
+        <ng-template #isFinished>
+          <ion-label style="text-decoration:line-through solid black; opacity: 0.5;"> {{ item.title }} </ion-label>
+        </ng-template>
+        <ion-checkbox color="secondary" [(ngModel)]="item.status" (ionChange)="finsihedListItem(i)"></ion-checkbox> 
+        <button ion-button clear item-end icon-only (click)="showEditTodoList(item, i)"> <ion-icon name="md-create"></ion-icon> </button>
       </ion-item>
       
       <ion-item>
@@ -33,6 +34,46 @@
         <button ion-button block medium (click)="addNewItemInList()">Add Item</button>
       </ion-item>
     </ion-list>
+  </ion-card>
+   -->
+
+
+  <ion-card *ngFor="let activity of activities; let actIndex = index">
+    <!-- <ion-card-header color="light">
+      {{ activity.title }}
+      <ion-buttons end>
+        <button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-card-header> -->
+
+    <ion-item>
+      <span item-start (click)="showEditTodoPrompt(actIndex)">{{ activity.title }}</span>
+      <button ion-button clear item-end icon-only color="danger" (click)="deleteActivity(actIndex)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-card-content>
+      <ion-list inset>   
+        <ion-item *ngFor="let item of activity.tasks; let i = index;">
+          <ion-label *ngIf="!item.status; else isFinished"> {{ item.title }} </ion-label>
+          <ng-template #isFinished>
+            <ion-label style="text-decoration:line-through solid black; opacity: 0.5;"> {{ item.title }} </ion-label>
+          </ng-template>
+          <ion-checkbox color="secondary" [(ngModel)]="item.status" (ionChange)="finsihedListItem(actIndex,i)"></ion-checkbox> 
+          <button ion-button clear item-end icon-only (click)="showEditTodoList(item, i, actIndex)"> <ion-icon name="md-create"></ion-icon> </button>
+        </ion-item>        
+      
+        <ion-item>
+          <ion-label floating>Todo List Item</ion-label>
+          <ion-input type="text" clearInput="true" [(ngModel)]="activity.tempStr"></ion-input>
+        </ion-item>
+        <ion-item>
+          <button ion-button block medium (click)="addNewItemInList(actIndex)">Add Item</button>
+        </ion-item>  
+      </ion-list>
+    </ion-card-content>
   </ion-card>
 
   <ion-fab bottom right>
