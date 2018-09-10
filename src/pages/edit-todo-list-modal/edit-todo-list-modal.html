@@ -18,55 +18,52 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
 <ion-card>    
   <ion-card-content>
-    <!-- <ion-card-title color="light"> Title </ion-card-title> -->
+    <ion-card-title color="light"> Task </ion-card-title>
 
-    <ion-item>
-      <ion-label color="light" floating>Title</ion-label>
-      <ion-input name="title"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="light" floating>Description</ion-label>
-      <ion-textarea name="Description"></ion-textarea>
-    </ion-item>
-  </ion-card-content>
-</ion-card>
-
-<!-- 
-  <ion-card>   
-    <ion-card-content>
-      <ion-card-title color="light"> Title </ion-card-title>
+    <ion-list inset>    
+      <ion-item>
+        <ion-label color="primary" stacked>Title</ion-label>
+        <ion-input type="text" placeholder="* Title" [(ngModel)]="item.title"></ion-input>
+      </ion-item>
 
       <ion-item>
-        <ion-label color="light" floating>Description</ion-label>
-        <ion-textarea name="Description"></ion-textarea>
+        <ion-label color="primary" stacked>Description</ion-label>
+        <ion-textarea type="text" placeholder="* Description" [(ngModel)]="item.description"></ion-textarea>
       </ion-item>
-    </ion-card-content>
-  </ion-card> 
--->
+    </ion-list>
+  </ion-card-content>
+</ion-card>
 
 <ion-card>
   <ion-card-content>
     <ion-card-title color="light"> Subtasks </ion-card-title>
 
-    <ion-item>
-    <ion-label> Sub 1 </ion-label>
-    <ion-checkbox color="secondary" checked="false"></ion-checkbox> 
-    <button ion-button clear item-end icon-only> <ion-icon name="md-create"></ion-icon> </button>
-  </ion-item>
+    <ion-item *ngFor="let task of item.subtasks; let i = index;">
+      <ion-label *ngIf="!task.status; else isFinished"> {{ task.title }} </ion-label>
 
-  <ion-item>
-      <ion-label> Sub 1 </ion-label>
-      <ion-checkbox color="secondary" checked="false"></ion-checkbox> 
-      <button ion-button clear item-end icon-only> <ion-icon name="md-create"></ion-icon> </button>
+      <ng-template #isFinished>
+        <ion-label style="text-decoration:line-through solid black; opacity: 0.5;"> {{ task.title }} </ion-label>
+      </ng-template>
+
+      <ion-checkbox color="secondary" [(ngModel)]="task.status" (ionChange)="finsihedListItem(i)"></ion-checkbox> 
+      <button ion-button clear item-end icon-only (click)="showEditPrompt(i)"> <ion-icon name="md-create"></ion-icon> </button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Todo List Item</ion-label>
+      <ion-input type="text" clearInput="true" [(ngModel)]="subTaskTitle"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button block medium (click)="addNewItemInList()">Add Subtask</button>
     </ion-item>
   </ion-card-content>
 </ion-card>
-
+<!-- 
 <ion-card>
   <ion-card-content>
     <ion-card-title color="light"> Deadline </ion-card-title>
@@ -81,7 +78,7 @@
     <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
         
   </ion-card-content>
-</ion-card>
+</ion-card> -->
 
 <!-- 
   <ion-list>
@@ -100,10 +97,12 @@
   </ion-list> 
 -->
 
- <ion-fab bottom left>
+ <!-- 
+   <ion-fab bottom left>
     <button ion-fab color="light">
        <ion-icon name="add"></ion-icon>
     </button>
-  </ion-fab>
+   </ion-fab> 
+  -->
 
 </ion-content>
