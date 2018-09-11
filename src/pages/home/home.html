@@ -56,14 +56,16 @@
     </ion-item>
     <ion-card-content>
       <ion-list inset>   
-        <ion-item *ngFor="let item of activity.tasks; let i = index;">
-          <ion-label *ngIf="!item.status; else isFinished"> {{ item.title }} </ion-label>
-          <ng-template #isFinished>
-            <ion-label style="text-decoration:line-through solid black; opacity: 0.5;"> {{ item.title }} </ion-label>
-          </ng-template>
-          <ion-checkbox color="secondary" [(ngModel)]="item.status" (ionChange)="finsihedListItem(actIndex,i)"></ion-checkbox> 
-          <button ion-button clear item-end icon-only (click)="showEditTodoList(item, i, actIndex)"> <ion-icon name="md-create"></ion-icon> </button>
-        </ion-item>        
+        <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event,actIndex)">
+          <ion-item *ngFor="let item of activity.tasks; let i = index;">
+            <ion-label *ngIf="!item.status; else isFinished"> {{ item.title }} </ion-label>
+            <ng-template #isFinished>
+              <ion-label style="text-decoration:line-through solid black; opacity: 0.5;"> {{ item.title }} </ion-label>
+            </ng-template>
+            <ion-checkbox color="secondary" [(ngModel)]="item.status" (ionChange)="finsihedListItem(actIndex,i)"></ion-checkbox> 
+            <button ion-button clear item-end icon-only (click)="showEditTodoList(item, i, actIndex)"> <ion-icon name="md-create"></ion-icon> </button>
+          </ion-item>       
+        </ion-item-group>
       
         <ion-item>
           <ion-label floating>Todo List Item</ion-label>

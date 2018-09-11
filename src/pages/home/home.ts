@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, ModalController, AlertController, reorderArray  } from 'ionic-angular';
 import { EditTodoListModalPage } from '../edit-todo-list-modal/edit-todo-list-modal';
 
 @Component({
@@ -105,14 +105,17 @@ export class HomePage {
 
   finsihedListItem(activityIndex, i) {
     let finishedItem =  this.activities[activityIndex].tasks[i];
-
     this.activities[activityIndex].tasks.splice(i,1);
-
     this.activities[activityIndex].tasks.push(finishedItem);
   }
 
   deleteActivity(actIndex) {
     this.activities.splice(actIndex, 1);
+  }
+
+  reorderItems(indexes, activityIndex) {
+    // Reordering of array 
+    this.activities[activityIndex].tasks = reorderArray( this.activities[activityIndex].tasks, indexes);
   }
 
 }

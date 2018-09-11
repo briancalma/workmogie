@@ -1,0 +1,57 @@
+<!--
+  Generated template for the RemindersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Reminders</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngFor="let reminder of reminders; let reminderIndex = index">
+    <ion-card-content>
+       <ion-item>
+          <ion-label>{{ reminder.title }}</ion-label>
+          <ion-icon name="arrow-dropdown" item-end (click)="toggleContents(reminder)"></ion-icon> 
+       </ion-item>  
+
+       <ion-item-group *ngIf="reminder.toggleOn">
+        <ion-list>
+          <ion-list-header>
+            SubTasks
+          </ion-list-header>
+          <ion-item *ngFor="let task of reminder.subtasks; let i = index">
+            <ion-checkbox color="secondary" [(ngModel)]="task.status" (ionChange)="finsihedListItem(reminder.subtasks,i)"></ion-checkbox> 
+            <ion-label *ngIf="!task.status;else isFinished">{{ task.title }}</ion-label>
+            <ng-template #isFinished>
+              <ion-label style="text-decoration:line-through solid black; opacity: 0.5;"> {{ task.title }} </ion-label>
+            </ng-template>
+            <button ion-button clear item-end icon-only (click)="showSubtaskEditPrompt(task)"> <ion-icon name="md-create"></ion-icon> </button>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Todo List Item</ion-label>
+            <ion-input type="text" clearInput="true" [(ngModel)]="reminder.textHandler"></ion-input>
+          </ion-item>
+      
+          <ion-item>
+            <button ion-button block medium (click)="addNewItemInList(reminder)">Add Subtask</button>
+          </ion-item>
+        </ion-list>
+       </ion-item-group>  
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="showAddReminderPrompt()" color="light"> 
+      <ion-icon name="add"></ion-icon> 
+    </button>
+  </ion-fab>
+</ion-content>

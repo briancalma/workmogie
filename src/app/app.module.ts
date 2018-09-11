@@ -11,6 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { EditTodoListModalPage } from '../pages/edit-todo-list-modal/edit-todo-list-modal';
+import { RemindersPage } from '../pages/reminders/reminders';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { EditTodoListModalPage } from '../pages/edit-todo-list-modal/edit-todo-l
     ContactPage,
     HomePage,
     TabsPage,
-    EditTodoListModalPage
+    EditTodoListModalPage,
+    RemindersPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { EditTodoListModalPage } from '../pages/edit-todo-list-modal/edit-todo-l
     ContactPage,
     HomePage,
     TabsPage,
-    EditTodoListModalPage
+    EditTodoListModalPage,
+    RemindersPage
   ],
   providers: [
     StatusBar,
